@@ -164,35 +164,31 @@ module scenes {
     // Task: Bullet
     private _checkCollisionsBullet(other:objects.GameObject)
     {
-      // var size = enemies[i].sprite.size;
-      for(var i = 0; i < this._tiefighters.length; i++)
+      var pos = other.position;
+
+      for(var j = 0; j < this._pbullets.length; j++)
       {
-        var pos = this._tiefighters[i].position;
+        var pos2 = this._pbullets[j].position;
 
-        for(var j = 0; j < this._pbullets.length; j++)
+        if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight))
         {
-          var pos2 = this._pbullets[j].position;
-
-          if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight))
+          if(!other.isColliding)
           {
-            if(!other.isColliding)
+            if(other.name == "tiefighter")
             {
-              if(other.name == "tiefighter")
-              {                
-                this._score += 100;
-                this._scoreLabel.text = "Score: " + this._score;
-                this._tiefighters[i].Reset();                
-              }
               this._pbullets[j].Reset(); 
-            }
-            other.isColliding = true;
+              this._score += 100;
+              this._scoreLabel.text = "Score: " + this._score;
+              other.Reset();                
+            }            
           }
-          else
-          {
-            other.isColliding = false;
-          }
+          other.isColliding = true;
         }
-      }      
+        else
+        {
+          other.isColliding = false;
+        }
+      }  
     }
 
     private _checkCollision(other:objects.GameObject)

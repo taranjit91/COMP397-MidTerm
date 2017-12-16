@@ -46,8 +46,10 @@ module objects {
       this._checkBounds();
     }
 
+
     public Reset():void
     {
+
       
     }
   }

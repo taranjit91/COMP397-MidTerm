@@ -23,8 +23,8 @@ module objects {
         // PRIVATE METHODS
         private _reset(): void
         {
-            this.y = -1000;
-            this.x = -1000;
+            this.y = 1000;
+            this.x = 1000;
         }
     
         private _checkBounds(): void

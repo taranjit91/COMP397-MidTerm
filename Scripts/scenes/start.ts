@@ -13,13 +13,15 @@ module scenes {
     private _startLabel:objects.Label;    
     private _startButton:objects.Button;
     private _theme:objects.Starwar;
-
+    private _sound: createjs.AbstractSoundInstance;
     //CONSTRUCTORS
     constructor(currentScene: number) {
       super();
 
       this._currentScene = currentScene;
-
+      
+      this._sound = createjs.Sound.play("audioStartEnd");
+      
       // register button event handlers
       this._startButtonClick = this._startButtonClick.bind(this);
 
@@ -29,6 +31,7 @@ module scenes {
     // PRIVATE METHODS
     private _startButtonClick(event:createjs.MouseEvent):void {
       this._currentScene = config.Scene.PLAY;
+      this._sound.stop();
       this.removeAllChildren();
     }
 

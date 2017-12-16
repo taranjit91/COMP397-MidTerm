@@ -185,13 +185,16 @@ var managers;
     var assetManifest = [
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "restartButton", src: "./Assets/images/restartButton.png" },
-        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "restartButton", src: "./Assets/images/restart.png" },
+        { id: "exitButton", src: "./Assets/images/exit1.png" },
+        { id: "startButton", src: "./Assets/images/start1.png" },
         { id: "playscreenbg", src: "./Assets/images/playbg.jpg" },
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
+        { id: "bullet", src: "./Assets/images/bullet.png" },
+        { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
+        { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" },
         { id: "pbullet", src: "./Assets/images/bullet.png" },
-        { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
     ];
     var AssetManager = /** @class */ (function (_super) {
         __extends(AssetManager, _super);
@@ -507,8 +510,8 @@ var objects;
         }
         // PRIVATE METHODS
         PBullet.prototype._reset = function () {
-            this.y = -1000;
-            this.x = -1000;
+            this.y = 1000;
+            this.x = 1000;
         };
         PBullet.prototype._checkBounds = function () {
             if (this.y <= 0 + this.height) {
@@ -690,6 +693,7 @@ var scenes;
         function End(currentScene) {
             var _this = _super.call(this) || this;
             _this._currentScene = currentScene;
+            _this._sound = createjs.Sound.play("audioStartEnd");
             // Register Button Event Handlers
             _this._backButtonClick = _this._backButtonClick.bind(_this);
             _this.Start();
@@ -698,6 +702,7 @@ var scenes;
         // PRIVATE METHODS
         End.prototype._backButtonClick = function (event) {
             this._currentScene = config.Scene.PLAY;
+            this._sound.stop();
             this.removeAllChildren();
         };
         // PUBLIC METHODS
@@ -826,25 +831,22 @@ var scenes;
         };
         // Task: Bullet
         Play.prototype._checkCollisionsBullet = function (other) {
-            // var size = enemies[i].sprite.size;
-            for (var i = 0; i < this._tiefighters.length; i++) {
-                var pos = this._tiefighters[i].position;
-                for (var j = 0; j < this._pbullets.length; j++) {
-                    var pos2 = this._pbullets[j].position;
-                    if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
-                        if (!other.isColliding) {
-                            if (other.name == "tiefighter") {
-                                this._score += 100;
-                                this._scoreLabel.text = "Score: " + this._score;
-                                this._tiefighters[i].Reset();
-                            }
+            var pos = other.position;
+            for (var j = 0; j < this._pbullets.length; j++) {
+                var pos2 = this._pbullets[j].position;
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    if (!other.isColliding) {
+                        if (other.name == "tiefighter") {
                             this._pbullets[j].Reset();
+                            this._score += 100;
+                            this._scoreLabel.text = "Score: " + this._score;
+                            other.Reset();
                         }
-                        other.isColliding = true;
                     }
-                    else {
-                        other.isColliding = false;
-                    }
+                    other.isColliding = true;
+                }
+                else {
+                    other.isColliding = false;
                 }
             }
         };
@@ -882,6 +884,7 @@ var scenes;
         function Start(currentScene) {
             var _this = _super.call(this) || this;
             _this._currentScene = currentScene;
+            _this._sound = createjs.Sound.play("audioStartEnd");
             // register button event handlers
             _this._startButtonClick = _this._startButtonClick.bind(_this);
             _this.Start();
@@ -890,6 +893,7 @@ var scenes;
         // PRIVATE METHODS
         Start.prototype._startButtonClick = function (event) {
             this._currentScene = config.Scene.PLAY;
+            this._sound.stop();
             this.removeAllChildren();
         };
         // PUBLIC METHODS

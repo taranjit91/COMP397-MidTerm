@@ -5,14 +5,14 @@ module scenes {
     private _backButton:objects.Button;
     private _highScoreLabel: objects.Label;
     private _theme:objects.Starwar;
-
+    private _sound: createjs.AbstractSoundInstance;
 
     //CONSTRUCTORS
     constructor(currentScene: number) {
       super();
 
       this._currentScene = currentScene;
-
+      this._sound = createjs.Sound.play("audioStartEnd");
       // Register Button Event Handlers
       this._backButtonClick = this._backButtonClick.bind(this);
 
@@ -22,6 +22,7 @@ module scenes {
     // PRIVATE METHODS
     private _backButtonClick(event:createjs.MouseEvent):void {
       this._currentScene = config.Scene.PLAY;
+      this._sound.stop();
       this.removeAllChildren();
     }
 
