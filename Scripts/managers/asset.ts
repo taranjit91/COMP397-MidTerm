@@ -1,3 +1,12 @@
+/*Team Name : 
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship. 
+Version 1
+Xwing just need to collect 1000 power(scores) to win the game and save Millennium Falcon is in Play Level*/
+
 module managers {
   export interface AssetItem {
     id: string;
@@ -8,7 +17,7 @@ module managers {
     {id: "backButton", src: "./Assets/images/backButton.png"},
     {id: "nextButton", src: "./Assets/images/nextButton.png"},
 
-    {id: "restartButton", src: "./Assets/images/restart.png"},
+    {id: "restartButton", src: "./Assets/images/restart1.png"},
     {id: "exitButton", src: "./Assets/images/exit1.png"},
     {id: "startButton", src: "./Assets/images/start1.png"},
     {id: "playscreenbg", src: "./Assets/images/playbg.jpg"},
