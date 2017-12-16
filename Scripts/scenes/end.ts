@@ -4,6 +4,8 @@ module scenes {
     private _startLabel:objects.Label;
     private _backButton:objects.Button;
 
+
+
     //CONSTRUCTORS
     constructor(currentScene: number) {
       super();

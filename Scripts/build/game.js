@@ -630,6 +630,11 @@ var scenes;
             this._playLabel = new objects.Label("Play Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
             this._nextButton = new objects.Button("nextButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
             this._player = new objects.Plane();
+            // Task: Score and Lives
+            this._lives = 5;
+            this._score = 0;
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", config.Color.BLACK, 100, 10, true);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
             this._mouse = new managers.Mouse(this._player);
@@ -642,13 +647,26 @@ var scenes;
             // this._gamepad.Update();
             this._mouse.Update();
             this._keyboard.Update();
+            // Check the Collision
+            //this._checkCollision(this);
             return this._currentScene;
         };
         Play.prototype.Main = function () {
             this.addChild(this._playLabel);
             this.addChild(this._nextButton);
             this.addChild(this._player);
-            this._nextButton.on("click", this._nextButtonClick);
+            // Task: Score and Lives
+            this.addChild(this._livesLabel);
+            this.addChild(this._scoreLabel);
+            //this._nextButton.on("click", this._nextButtonClick);
+        };
+        Play.prototype._checkCollision = function (other) {
+            // Task: Score and Lives
+            if (this._lives <= 0) {
+                this._currentScene = config.Scene.END;
+                this.removeAllChildren();
+            }
+            this._livesLabel.text = "Lives: " + this._lives;
         };
         return Play;
     }(objects.Scene));
