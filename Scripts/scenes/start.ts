@@ -10,7 +10,7 @@ module scenes {
       super();
 
       this._currentScene = currentScene;
-      //createjs.Sound.alternateExtensions = ["mp3"];
+      
       this._sound = createjs.Sound.play("audioStartEnd");
       
       // register button event handlers

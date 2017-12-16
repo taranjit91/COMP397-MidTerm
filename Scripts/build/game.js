@@ -693,6 +693,7 @@ var scenes;
         function End(currentScene) {
             var _this = _super.call(this) || this;
             _this._currentScene = currentScene;
+            _this._sound = createjs.Sound.play("audioStartEnd");
             // Register Button Event Handlers
             _this._backButtonClick = _this._backButtonClick.bind(_this);
             _this.Start();
@@ -701,6 +702,7 @@ var scenes;
         // PRIVATE METHODS
         End.prototype._backButtonClick = function (event) {
             this._currentScene = config.Scene.PLAY;
+            this._sound.stop();
             this.removeAllChildren();
         };
         // PUBLIC METHODS
@@ -885,7 +887,6 @@ var scenes;
         function Start(currentScene) {
             var _this = _super.call(this) || this;
             _this._currentScene = currentScene;
-            //createjs.Sound.alternateExtensions = ["mp3"];
             _this._sound = createjs.Sound.play("audioStartEnd");
             // register button event handlers
             _this._startButtonClick = _this._startButtonClick.bind(_this);
