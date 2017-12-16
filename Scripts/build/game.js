@@ -192,7 +192,7 @@ var managers;
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
         { id: "pbullet", src: "./Assets/images/bullet.png" },
-        { id: "plife", src: "./Assets/images/bullet.png" },
+        { id: "plife", src: "./Assets/images/white-heart-md.png" },
         { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
         { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" }
     ];
@@ -937,7 +937,7 @@ Xwing just need to collect 500 power(scores) to win the game and save Millennium
             this._lives = 5;
             this._totalLives = 5;
             this._score = 0;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);
+            this._livesLabel = new objects.Label("" + this._lives, "30px", "Dock51", config.Color.WHITE, 15, 14, true);
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
             this._plife = new Array();
             // uncomment the next line to enable gamepad support
@@ -992,11 +992,11 @@ Xwing just need to collect 500 power(scores) to win the game and save Millennium
                 this.addChild(this._tiefighters[count]);
             }
             // Task: Score and Lives
-            this.addChild(this._livesLabel);
+            //this.addChild(this._livesLabel);
             this.addChild(this._scoreLabel);
             for (var count = 0; count < this._totalLives; count++) {
                 this._plife[count] = new objects.PLife();
-                this._plife[count].SetPosition(10 + (count * 10), 10);
+                this._plife[count].SetPosition(35 + (count * 30), 15);
                 this.addChild(this._plife[count]);
             }
             //this._nextButton.on("click", this._nextButtonClick);
@@ -1038,13 +1038,14 @@ Xwing just need to collect 500 power(scores) to win the game and save Millennium
                 if (!other.isColliding) {
                     if (other.name == "tiefighter") {
                         this._lives -= 1;
+                        this._plife[(this._lives)].Reset();
                         other.Reset();
                         // Task: Score and Lives
                         if (this._lives <= 0) {
                             this._currentScene = config.Scene.END;
                             this.removeAllChildren();
                         }
-                        this._livesLabel.text = "Lives: " + this._lives;
+                        this._livesLabel.text = "" + this._lives;
                     }
                     other.isColliding = true;
                 }
