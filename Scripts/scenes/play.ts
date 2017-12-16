@@ -32,9 +32,11 @@ module scenes {
     // Task: Score and Lives
     private _livesLabel: objects.Label;
     private _scoreLabel: objects.Label;
-
+   
     private _lives:number;
-    private _score:number
+    private _totalLives:number;
+    private _score:number;
+    private _plife: objects.PLife[];
 
     //CONSTRUCTORS
     constructor(currentScene: number) {
@@ -73,10 +75,12 @@ module scenes {
 
       // Task: Score and Lives
       this._lives = 5;
+      this._totalLives = 5;
       this._score = 0;     
       this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);       
       this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
-      
+      this._plife = new Array<objects.PLife>();
+
       // uncomment the next line to enable gamepad support
       //this._gamepad = new managers.GamePad(this._player, 0);
       //this._mouse = new managers.Mouse(this._player);
@@ -145,6 +149,11 @@ module scenes {
       this.addChild(this._livesLabel);
       this.addChild(this._scoreLabel);
 
+      for (let count = 0; count < this._totalLives; count++) {
+        this._plife[count] = new objects.PLife();
+        this._plife[count].SetPosition(10 + (count*10), 10);
+        this.addChild(this._plife[count]);
+      }
       //this._nextButton.on("click", this._nextButtonClick);
     }
 

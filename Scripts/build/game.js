@@ -192,10 +192,10 @@ var managers;
         { id: "playscreenbg", src: "./Assets/images/playbg.jpg" },
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
-        { id: "bullet", src: "./Assets/images/bullet.png" },
-        { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
-        { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" },
         { id: "pbullet", src: "./Assets/images/bullet.png" },
+        { id: "plife", src: "./Assets/images/bullet.png" },
+        { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
+        { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" }
     ];
     var AssetManager = /** @class */ (function (_super) {
         __extends(AssetManager, _super);
@@ -665,6 +665,36 @@ var objects;
     }(objects.GameObject));
     objects.Plane = Plane;
 })(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var PLife = /** @class */ (function (_super) {
+        __extends(PLife, _super);
+        // PRIVATE INSTANCE VARIABLES
+        // PUBLIC PROPERTIES
+        // CONSTRUCTORS
+        function PLife() {
+            var _this = _super.call(this, "plife") || this;
+            _this.Start();
+            return _this;
+        }
+        // PRIVATE METHODS        
+        // PUBLIC METHODS
+        PLife.prototype.Start = function () {
+        };
+        PLife.prototype.Reset = function () {
+            this.x = 1000;
+            this.y = 1000;
+        };
+        PLife.prototype.Update = function () {
+        };
+        PLife.prototype.SetPosition = function (_x, _y) {
+            this.x = _x;
+            this.y = _y;
+        };
+        return PLife;
+    }(objects.GameObject));
+    objects.PLife = PLife;
+})(objects || (objects = {}));
 /*Team Name :
 Amandeep K Aujla(300823938)
 Sangbeom Yi (300857600)
@@ -913,9 +943,11 @@ Xwing just need to collect 1000 power(scores) to win the game and save Millenniu
             this._tiefighters = new Array();
             // Task: Score and Lives
             this._lives = 5;
+            this._totalLives = 5;
             this._score = 0;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
+            this._plife = new Array();
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
             //this._mouse = new managers.Mouse(this._player);
@@ -970,6 +1002,11 @@ Xwing just need to collect 1000 power(scores) to win the game and save Millenniu
             // Task: Score and Lives
             this.addChild(this._livesLabel);
             this.addChild(this._scoreLabel);
+            for (var count = 0; count < this._totalLives; count++) {
+                this._plife[count] = new objects.PLife();
+                this._plife[count].SetPosition(10 + (count * 10), 10);
+                this.addChild(this._plife[count]);
+            }
             //this._nextButton.on("click", this._nextButtonClick);
         };
         // Task: Bullet
