@@ -335,21 +335,18 @@ var managers;
             // correct direction
             var direction = (this.player.rotation - 90) * -1;
             // uncomment the following for Regular player movement not following player's direction
-            /*
-            if(this.moveRight) {
-              this.player.x += 5;
+            if (this.moveRight) {
+                this.player.x += 5;
             }
-            if(this.moveLeft) {
-              this.player.x -= 5;
+            if (this.moveLeft) {
+                this.player.x -= 5;
             }
-      
-            if(this.moveForward) {
-              this.player.y -= 5;
+            if (this.moveForward) {
+                this.player.y -= 5;
             }
-            if(this.moveBackward) {
-              this.player.y += 5;
+            if (this.moveBackward) {
+                this.player.y += 5;
             }
-            */
             // uncomment the following lines to have the keyboard buttons follow player's direction
             if (this.moveForward) {
                 this.player.x += 5 * Math.cos(direction * (Math.PI / 180.0));
@@ -686,7 +683,7 @@ var scenes;
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
-            this._mouse = new managers.Mouse(this._player);
+            //this._mouse = new managers.Mouse(this._player);
             this._keyboard = new managers.Keyboard(this._player);
             this.Main();
         };
@@ -694,8 +691,8 @@ var scenes;
             var _this = this;
             this._player.Update();
             // uncomment the next line to enable gamepad support
-            // this._gamepad.Update();
-            this._mouse.Update();
+            //this._gamepad.Update();
+            //this._mouse.Update();
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);

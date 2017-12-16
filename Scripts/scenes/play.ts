@@ -57,7 +57,7 @@ module scenes {
 
       // uncomment the next line to enable gamepad support
       //this._gamepad = new managers.GamePad(this._player, 0);
-      this._mouse = new managers.Mouse(this._player);
+      //this._mouse = new managers.Mouse(this._player);
       this._keyboard = new managers.Keyboard(this._player);
 
 
@@ -67,8 +67,8 @@ module scenes {
     public Update():number {
       this._player.Update();
       // uncomment the next line to enable gamepad support
-     // this._gamepad.Update();
-      this._mouse.Update();
+      //this._gamepad.Update();
+      //this._mouse.Update();
       this._keyboard.Update();
 
 
