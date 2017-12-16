@@ -21,7 +21,7 @@ module objects {
         private _checkBounds(): void
         {
             if (this.y <= 0 + this.height) {
-            this._reset();
+                this._reset();
             }
         }
 

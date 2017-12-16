@@ -186,7 +186,9 @@ var managers;
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
-        { id: "startButton", src: "./Assets/images/startButton.png" },
+        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "playscreenbg", src: "./Assets/images/playbg.jpg" },
+        { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
         { id: "pbullet", src: "./Assets/images/bullet.png" },
         { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
@@ -623,6 +625,20 @@ var objects;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
+    var Starwar = /** @class */ (function (_super) {
+        __extends(Starwar, _super);
+        // PRIVATE INSTANCE VARIABLES
+        // PUBLIC PROPERTIES
+        // CONSTRUCTORS
+        function Starwar(name) {
+            return _super.call(this, objects.Game.assetManager.getResult(name)) || this;
+        }
+        return Starwar;
+    }(createjs.Bitmap));
+    objects.Starwar = Starwar;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
     var Tiefighter = /** @class */ (function (_super) {
         __extends(Tiefighter, _super);
         // PRIVATE INSTANCE VARIABLES
@@ -686,15 +702,19 @@ var scenes;
         };
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this._startLabel = new objects.Label("End Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
+            this._titleLabel = new objects.Label("GAME OVER", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 140, true);
             this._backButton = new objects.Button("backButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
+            this._highScoreLabel = new objects.Label("HIGH SCORE: " + 400, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 60, true);
+            this._theme = new objects.Starwar("starwar");
             this.Main();
         };
         End.prototype.Update = function () {
             return this._currentScene;
         };
         End.prototype.Main = function () {
-            this.addChild(this._startLabel);
+            this.addChild(this._theme);
+            this.addChild(this._titleLabel);
+            this.addChild(this._highScoreLabel);
             this.addChild(this._backButton);
             this._backButton.on("click", this._backButtonClick);
         };
@@ -723,18 +743,22 @@ var scenes;
         // PUBLIC METHODS
         Play.prototype.Start = function () {
             this._player = new objects.Plane();
+            this._theme = new objects.Starwar("playscreenbg");
             // Task: Bullet
             this._pbulletNum = 30;
             this._pbullets = new Array();
             this._pbulletCounter = 0;
+            this._pbulletInterval = true;
+            this._pbulletIntervalNum = 10;
+            this._pbulletIntervalCount = 0;
             // Task: Enemy
             this._tiefightersNum = 2;
             this._tiefighters = new Array();
             // Task: Score and Lives
             this._lives = 5;
             this._score = 0;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", config.Color.BLACK, 100, 10, true);
-            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
             //this._mouse = new managers.Mouse(this._player);
@@ -743,6 +767,12 @@ var scenes;
         };
         Play.prototype.Update = function () {
             var _this = this;
+            // Task: Bullet
+            this._pbulletIntervalCount++;
+            if (this._pbulletIntervalCount > this._pbulletIntervalNum) {
+                this._pbulletIntervalCount = 0;
+                this._pbulletInterval = true;
+            }
             this._player.Update();
             // uncomment the next line to enable gamepad support
             //this._gamepad.Update();
@@ -750,22 +780,25 @@ var scenes;
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);
-            if (this._keyboard.IsJump()) {
+            if (this._keyboard.IsJump() && this._pbulletInterval == true) {
                 this._bulletFire();
+                this._pbulletInterval = false;
             }
             // Task: Bullet
             this._pbullets.forEach(function (bullet) {
                 bullet.Update();
-                _this._checkCollisionsBullet(bullet);
             });
             // Task: Enemy
             this._tiefighters.forEach(function (tiefighters) {
                 tiefighters.Update();
                 _this._checkCollision(tiefighters);
+                // Task: Bullet
+                _this._checkCollisionsBullet(tiefighters);
             });
             return this._currentScene;
         };
         Play.prototype.Main = function () {
+            this.addChild(this._theme);
             this.addChild(this._player);
             // Task: Bullet
             for (var count = 0; count < this._pbulletNum; count++) {
@@ -862,14 +895,16 @@ var scenes;
         // PUBLIC METHODS
         Start.prototype.Start = function () {
             console.log("Start Scene");
-            this._startLabel = new objects.Label("Start Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
+            this._startLabel = new objects.Label("STAR WARS", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 140, true);
             this._startButton = new objects.Button("startButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
+            this._theme = new objects.Starwar("starwar");
             this.Main();
         };
         Start.prototype.Update = function () {
             return this._currentScene;
         };
         Start.prototype.Main = function () {
+            this.addChild(this._theme);
             this.addChild(this._startLabel);
             this.addChild(this._startButton);
             this._startButton.on("click", this._startButtonClick);

@@ -1,9 +1,10 @@
 module scenes {
   export class End extends objects.Scene {
     // PRIVATE INSTANCE VARIABLES
-    private _startLabel:objects.Label;
+    private _titleLabel:objects.Label;
     private _backButton:objects.Button;
-
+    private _highScoreLabel: objects.Label;
+    private _theme:objects.Starwar;
 
 
     //CONSTRUCTORS
@@ -27,9 +28,10 @@ module scenes {
 
     // PUBLIC METHODS
     public Start():void {
-      this._startLabel = new objects.Label("End Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
+      this._titleLabel = new objects.Label("GAME OVER", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-140, true);
       this._backButton = new objects.Button("backButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
-
+      this._highScoreLabel = new objects.Label("HIGH SCORE: "+400, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-60, true);
+      this._theme= new objects.Starwar("starwar");
       this.Main();
     }
 
@@ -38,7 +40,9 @@ module scenes {
     }
 
     public Main():void {
-      this.addChild(this._startLabel);
+      this.addChild(this._theme);
+      this.addChild(this._titleLabel);
+      this.addChild(this._highScoreLabel);
       this.addChild(this._backButton);
 
       this._backButton.on("click", this._backButtonClick);

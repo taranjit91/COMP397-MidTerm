@@ -8,7 +8,9 @@ module managers {
     {id: "backButton", src: "./Assets/images/backButton.png"},
     {id: "nextButton", src: "./Assets/images/nextButton.png"},
     {id: "restartButton", src: "./Assets/images/restartButton.png"},
-    {id: "startButton", src: "./Assets/images/startButton.png"},
+    {id: "startButton", src: "./Assets/images/start.png"},
+    {id: "playscreenbg", src: "./Assets/images/playbg.jpg"},
+    {id: "starwar", src: "./Assets/images/bg.png"},
     {id: "plane", src: "./Assets/images/xwing.png"},
     {id: "pbullet", src: "./Assets/images/bullet.png"},
     {id: "tiefighter", src: "./Assets/images/tiefighter.png"}
