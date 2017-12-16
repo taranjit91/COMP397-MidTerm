@@ -92,6 +92,7 @@ var config;
         Scene.START = 0;
         Scene.PLAY = 1;
         Scene.END = 2;
+        Scene.HIGHSCORE = -1;
         return Scene;
     }());
     config.Scene = Scene;
@@ -405,7 +406,23 @@ var managers;
     }());
     managers.Mouse = Mouse;
 })(managers || (managers = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Button = /** @class */ (function (_super) {
         __extends(Button, _super);
@@ -435,7 +452,23 @@ var objects;
     }(createjs.Bitmap));
     objects.Button = Button;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Game = /** @class */ (function () {
         function Game() {
@@ -445,7 +478,23 @@ var objects;
     }());
     objects.Game = Game;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
@@ -472,7 +521,23 @@ var objects;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Label = /** @class */ (function (_super) {
         __extends(Label, _super);
@@ -496,7 +561,23 @@ var objects;
     }(createjs.Text));
     objects.Label = Label;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var PBullet = /** @class */ (function (_super) {
         __extends(PBullet, _super);
@@ -584,7 +665,23 @@ var objects;
     }(objects.GameObject));
     objects.Plane = Plane;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Scene = /** @class */ (function (_super) {
         __extends(Scene, _super);
@@ -626,7 +723,23 @@ var objects;
     }(createjs.Container));
     objects.Scene = Scene;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Starwar = /** @class */ (function (_super) {
         __extends(Starwar, _super);
@@ -640,7 +753,23 @@ var objects;
     }(createjs.Bitmap));
     objects.Starwar = Starwar;
 })(objects || (objects = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var objects;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (objects) {
     var Tiefighter = /** @class */ (function (_super) {
         __extends(Tiefighter, _super);
@@ -708,9 +837,16 @@ var scenes;
         // PUBLIC METHODS
         End.prototype.Start = function () {
             this._titleLabel = new objects.Label("GAME OVER", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 140, true);
-            this._backButton = new objects.Button("backButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
+            this._backButton = new objects.Button("restartButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
             this._highScoreLabel = new objects.Label("HIGH SCORE: " + 400, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 60, true);
             this._theme = new objects.Starwar("starwar");
+            if (config.Scene.HIGHSCORE >= 1000) {
+                this._titleLabel = new objects.Label("YOU WON", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 140, true);
+                this._highScoreLabel = new objects.Label("HIGH SCORE: " + config.Scene.HIGHSCORE, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 60, true);
+            }
+            if (config.Scene.HIGHSCORE < 1000) {
+                this._highScoreLabel = new objects.Label("HIGH SCORE: " + config.Scene.HIGHSCORE, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 60, true);
+            }
             this.Main();
         };
         End.prototype.Update = function () {
@@ -727,7 +863,23 @@ var scenes;
     }(objects.Scene));
     scenes.End = End;
 })(scenes || (scenes = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 1000 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var scenes;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 1000 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (scenes) {
     var Play = /** @class */ (function (_super) {
         __extends(Play, _super);
@@ -839,7 +991,12 @@ var scenes;
                         if (other.name == "tiefighter") {
                             this._pbullets[j].Reset();
                             this._score += 100;
+                            config.Scene.HIGHSCORE = this._score;
                             this._scoreLabel.text = "Score: " + this._score;
+                            if (this._score >= 1000) {
+                                this._currentScene = config.Scene.END;
+                                this.removeAllChildren();
+                            }
                             other.Reset();
                         }
                     }
@@ -876,7 +1033,23 @@ var scenes;
     }(objects.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 var scenes;
+/*Team Name :
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship.
+Version 1
+Xwing just need to collect 500 power(scores) to win the game and save Millennium Falcon is in Play Level*/
 (function (scenes) {
     var Start = /** @class */ (function (_super) {
         __extends(Start, _super);

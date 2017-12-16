@@ -30,9 +30,19 @@ module scenes {
     // PUBLIC METHODS
     public Start():void {
       this._titleLabel = new objects.Label("GAME OVER", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-140, true);
-      this._backButton = new objects.Button("backButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
+      this._backButton = new objects.Button("restartButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
       this._highScoreLabel = new objects.Label("HIGH SCORE: "+400, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-60, true);
       this._theme= new objects.Starwar("starwar");
+      if(config.Scene.HIGHSCORE>=1000)
+      {
+        this._titleLabel= new objects.Label("YOU WON", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-140, true);
+        this._highScoreLabel= new objects.Label("HIGH SCORE: "+config.Scene.HIGHSCORE, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-60, true);
+        
+      }
+      if(config.Scene.HIGHSCORE<1000)
+      {
+        this._highScoreLabel= new objects.Label("HIGH SCORE: "+config.Scene.HIGHSCORE, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT-60, true);
+      }
       this.Main();
     }
 
