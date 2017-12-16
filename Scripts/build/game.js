@@ -187,7 +187,8 @@ var managers;
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "plane", src: "./Assets/images/plane.png" }
+        { id: "plane", src: "./Assets/images/xwing.png" },
+        { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
     ];
     var AssetManager = /** @class */ (function (_super) {
         __extends(AssetManager, _super);
@@ -571,6 +572,51 @@ var objects;
     }(createjs.Container));
     objects.Scene = Scene;
 })(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var Tiefighter = /** @class */ (function (_super) {
+        __extends(Tiefighter, _super);
+        // PRIVATE INSTANCE VARIABLES
+        // PUBLIC PROPERTIES
+        // CONSTRUCTORS
+        function Tiefighter() {
+            var _this = _super.call(this, "tiefighter") || this;
+            _this.Start();
+            return _this;
+        }
+        // PRIVATE METHODS
+        Tiefighter.prototype._reset = function () {
+            this.y = -this.height;
+            this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
+            this.verticalSpeed = (Math.random() * 5) + 5;
+            this.horizontalSpeed = (Math.random() * 4) - 2;
+        };
+        Tiefighter.prototype._checkBounds = function () {
+            if (this.y >= 600 + this.height) {
+                this._reset();
+            }
+        };
+        // PUBLIC METHODS
+        Tiefighter.prototype.Start = function () {
+            this._reset();
+        };
+        Tiefighter.prototype._updatePosition = function () {
+            this.y += this.verticalSpeed;
+            this.x += this.horizontalSpeed;
+            this.position.x = this.x;
+            this.position.y = this.y;
+        };
+        Tiefighter.prototype.Update = function () {
+            this._updatePosition();
+            this._checkBounds();
+        };
+        Tiefighter.prototype.Reset = function () {
+            this._reset();
+        };
+        return Tiefighter;
+    }(objects.GameObject));
+    objects.Tiefighter = Tiefighter;
+})(objects || (objects = {}));
 var scenes;
 (function (scenes) {
     var End = /** @class */ (function (_super) {
@@ -630,6 +676,9 @@ var scenes;
             this._playLabel = new objects.Label("Play Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
             this._nextButton = new objects.Button("nextButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
             this._player = new objects.Plane();
+            // Task: Enemy
+            this._tiefightersNum = 2;
+            this._tiefighters = new Array();
             // Task: Score and Lives
             this._lives = 5;
             this._score = 0;
@@ -642,6 +691,7 @@ var scenes;
             this.Main();
         };
         Play.prototype.Update = function () {
+            var _this = this;
             this._player.Update();
             // uncomment the next line to enable gamepad support
             // this._gamepad.Update();
@@ -649,12 +699,22 @@ var scenes;
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);
+            // Task: Enemy
+            this._tiefighters.forEach(function (tiefighters) {
+                tiefighters.Update();
+                _this._checkCollision(tiefighters);
+            });
             return this._currentScene;
         };
         Play.prototype.Main = function () {
             this.addChild(this._playLabel);
             this.addChild(this._nextButton);
             this.addChild(this._player);
+            // Task: Enemy
+            for (var count = 0; count < this._tiefightersNum; count++) {
+                this._tiefighters[count] = new objects.Tiefighter();
+                this.addChild(this._tiefighters[count]);
+            }
             // Task: Score and Lives
             this.addChild(this._livesLabel);
             this.addChild(this._scoreLabel);

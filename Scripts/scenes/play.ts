@@ -8,6 +8,10 @@ module scenes {
     private _keyboard:managers.Keyboard;
     private _mouse:managers.Mouse;
 
+    // Task: Enemy
+    private _tiefighters:objects.Tiefighter[];  
+    private _tiefightersNum:number;
+
     // Task: Score and Lives
     private _livesLabel: objects.Label;
     private _scoreLabel: objects.Label;
@@ -41,6 +45,10 @@ module scenes {
 
       this._player = new objects.Plane();
 
+      // Task: Enemy
+      this._tiefightersNum = 2;
+      this._tiefighters = new Array<objects.Tiefighter>();
+
       // Task: Score and Lives
       this._lives = 5;
       this._score = 0;     
@@ -67,7 +75,13 @@ module scenes {
       // Check the Collision
       //this._checkCollision(this);
 
-      return this._currentScene;
+      // Task: Enemy
+      this._tiefighters.forEach(tiefighters => {
+        tiefighters.Update();
+        this._checkCollision(tiefighters);
+      });
+
+      return this._currentScene; 
     }
 
     public Main():void {
@@ -75,6 +89,11 @@ module scenes {
       this.addChild(this._nextButton);
       this.addChild(this._player);
 
+      // Task: Enemy
+      for (let count = 0; count < this._tiefightersNum; count++) {
+        this._tiefighters[count] = new objects.Tiefighter();
+        this.addChild(this._tiefighters[count]);
+      }
 
       // Task: Score and Lives
       this.addChild(this._livesLabel);
