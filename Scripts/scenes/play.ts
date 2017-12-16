@@ -1,8 +1,6 @@
 module scenes {
   export class Play extends objects.Scene {
     // PRIVATE INSTANCE VARIABLES
-    private _playLabel:objects.Label;
-    private _nextButton:objects.Button;
     private _gamepad:managers.GamePad;
     private _player:objects.Plane;
     private _keyboard:managers.Keyboard;
@@ -40,9 +38,6 @@ module scenes {
 
     // PUBLIC METHODS
     public Start():void {
-      this._playLabel = new objects.Label("Play Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
-      this._nextButton = new objects.Button("nextButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
-
       this._player = new objects.Plane();
 
       // Task: Enemy
@@ -57,7 +52,7 @@ module scenes {
 
       // uncomment the next line to enable gamepad support
       //this._gamepad = new managers.GamePad(this._player, 0);
-      this._mouse = new managers.Mouse(this._player);
+      //this._mouse = new managers.Mouse(this._player);
       this._keyboard = new managers.Keyboard(this._player);
 
 
@@ -67,10 +62,9 @@ module scenes {
     public Update():number {
       this._player.Update();
       // uncomment the next line to enable gamepad support
-     // this._gamepad.Update();
-      this._mouse.Update();
+      //this._gamepad.Update();
+      //this._mouse.Update();
       this._keyboard.Update();
-
 
       // Check the Collision
       //this._checkCollision(this);
@@ -85,8 +79,6 @@ module scenes {
     }
 
     public Main():void {
-      this.addChild(this._playLabel);
-      this.addChild(this._nextButton);
       this.addChild(this._player);
 
       // Task: Enemy

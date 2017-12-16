@@ -189,6 +189,7 @@ var managers;
         { id: "startButton", src: "./Assets/images/start.png" },
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
+        { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
     ];
     var AssetManager = /** @class */ (function (_super) {
@@ -336,21 +337,18 @@ var managers;
             // correct direction
             var direction = (this.player.rotation - 90) * -1;
             // uncomment the following for Regular player movement not following player's direction
-            /*
-            if(this.moveRight) {
-              this.player.x += 5;
+            if (this.moveRight) {
+                this.player.x += 5;
             }
-            if(this.moveLeft) {
-              this.player.x -= 5;
+            if (this.moveLeft) {
+                this.player.x -= 5;
             }
-      
-            if(this.moveForward) {
-              this.player.y -= 5;
+            if (this.moveForward) {
+                this.player.y -= 5;
             }
-            if(this.moveBackward) {
-              this.player.y += 5;
+            if (this.moveBackward) {
+                this.player.y += 5;
             }
-            */
             // uncomment the following lines to have the keyboard buttons follow player's direction
             if (this.moveForward) {
                 this.player.x += 5 * Math.cos(direction * (Math.PI / 180.0));
@@ -688,8 +686,6 @@ var scenes;
         };
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            this._playLabel = new objects.Label("Play Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
-            this._nextButton = new objects.Button("nextButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
             this._player = new objects.Plane();
             // Task: Enemy
             this._tiefightersNum = 2;
@@ -701,7 +697,7 @@ var scenes;
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
-            this._mouse = new managers.Mouse(this._player);
+            //this._mouse = new managers.Mouse(this._player);
             this._keyboard = new managers.Keyboard(this._player);
             this.Main();
         };
@@ -709,8 +705,8 @@ var scenes;
             var _this = this;
             this._player.Update();
             // uncomment the next line to enable gamepad support
-            // this._gamepad.Update();
-            this._mouse.Update();
+            //this._gamepad.Update();
+            //this._mouse.Update();
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);
@@ -722,8 +718,6 @@ var scenes;
             return this._currentScene;
         };
         Play.prototype.Main = function () {
-            this.addChild(this._playLabel);
-            this.addChild(this._nextButton);
             this.addChild(this._player);
             // Task: Enemy
             for (var count = 0; count < this._tiefightersNum; count++) {

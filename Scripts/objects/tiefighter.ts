@@ -6,8 +6,7 @@ module objects {
   
       // CONSTRUCTORS
       constructor() {
-        super("tiefighter");
-        
+        super("tiefighter");        
         this.Start();
       }
       

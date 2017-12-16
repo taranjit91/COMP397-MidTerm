@@ -78,7 +78,6 @@ module managers {
       let direction = (this.player.rotation -90) * -1;
 
       // uncomment the following for Regular player movement not following player's direction
-      /*
       if(this.moveRight) {
         this.player.x += 5;
       }
@@ -91,8 +90,7 @@ module managers {
       }
       if(this.moveBackward) {
         this.player.y += 5;
-      }
-      */
+      }      
 
       // uncomment the following lines to have the keyboard buttons follow player's direction
       if(this.moveForward) {

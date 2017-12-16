@@ -12,6 +12,7 @@ module managers {
     
     {id: "starwar", src: "./Assets/images/bg.png"},
     {id: "plane", src: "./Assets/images/xwing.png"},
+    {id: "bullet", src: "./Assets/images/bullet.png"},
     {id: "tiefighter", src: "./Assets/images/tiefighter.png"}
   ]
 
