@@ -30,7 +30,6 @@ module objects {
       }
     }
 
-
     // PUBLIC METHODS
     public Start():void
     {
@@ -45,13 +44,9 @@ module objects {
       this.bulletSpawn.y = this.y - 35;
       this._checkBounds();
     }
-<<<<<<< HEAD
-    public Reset():void{
-=======
 
     public Reset():void
     {
->>>>>>> fcfd6c6f2265b2739f05ed89b8b700b62174d6fb
       
     }
   }
