@@ -721,12 +721,26 @@ var scenes;
             //this._nextButton.on("click", this._nextButtonClick);
         };
         Play.prototype._checkCollision = function (other) {
-            // Task: Score and Lives
-            if (this._lives <= 0) {
-                this._currentScene = config.Scene.END;
-                this.removeAllChildren();
+            var P1 = new createjs.Point(this._player.x, this._player.y);
+            var P2 = other.position;
+            if (Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                if (!other.isColliding) {
+                    if (other.name == "tiefighter") {
+                        this._lives -= 1;
+                        other.Reset();
+                        // Task: Score and Lives
+                        if (this._lives <= 0) {
+                            this._currentScene = config.Scene.END;
+                            this.removeAllChildren();
+                        }
+                        this._livesLabel.text = "Lives: " + this._lives;
+                    }
+                    other.isColliding = true;
+                }
             }
-            this._livesLabel.text = "Lives: " + this._lives;
+            else {
+                other.isColliding = false;
+            }
         };
         return Play;
     }(objects.Scene));
