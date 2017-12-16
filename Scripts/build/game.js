@@ -187,6 +187,7 @@ var managers;
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
         { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "playscreenbg", src: "./Assets/images/playbg.png" },
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
@@ -650,15 +651,19 @@ var scenes;
         };
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this._startLabel = new objects.Label("End Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
+            this._titleLabel = new objects.Label("GAME OVER", "60px", "StarJedi", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 140, true);
             this._backButton = new objects.Button("backButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
+            this._highScoreLabel = new objects.Label("HIGH SCORE: " + 400, "25px", "Dock51", config.Color.WHITE, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT - 60, true);
+            this._theme = new objects.Starwar("starwar");
             this.Main();
         };
         End.prototype.Update = function () {
             return this._currentScene;
         };
         End.prototype.Main = function () {
-            this.addChild(this._startLabel);
+            this.addChild(this._theme);
+            this.addChild(this._titleLabel);
+            this.addChild(this._highScoreLabel);
             this.addChild(this._backButton);
             this._backButton.on("click", this._backButtonClick);
         };

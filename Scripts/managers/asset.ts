@@ -9,7 +9,7 @@ module managers {
     {id: "nextButton", src: "./Assets/images/nextButton.png"},
     {id: "restartButton", src: "./Assets/images/restartButton.png"},
     {id: "startButton", src: "./Assets/images/start.png"},
-    
+    {id: "playscreenbg", src: "./Assets/images/playbg.png"},
     {id: "starwar", src: "./Assets/images/bg.png"},
     {id: "plane", src: "./Assets/images/xwing.png"},
     {id: "bullet", src: "./Assets/images/bullet.png"},
