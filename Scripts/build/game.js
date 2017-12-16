@@ -185,13 +185,15 @@ var managers;
     var assetManifest = [
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "restartButton", src: "./Assets/images/restartButton.png" },
-        { id: "startButton", src: "./Assets/images/start.png" },
-        { id: "playscreenbg", src: "./Assets/images/playbg.png" },
+        { id: "restartButton", src: "./Assets/images/restart.png" },
+        { id: "exitButton", src: "./Assets/images/exit1.png" },
+        { id: "startButton", src: "./Assets/images/start1.png" },
+        { id: "playscreenbg", src: "./Assets/images/playbg.jpg" },
         { id: "starwar", src: "./Assets/images/bg.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
-        { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
+        { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
+        { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" },
     ];
     var AssetManager = /** @class */ (function (_super) {
         __extends(AssetManager, _super);
@@ -526,6 +528,8 @@ var objects;
             this.bulletSpawn.y = this.y - 35;
             this._checkBounds();
         };
+        Plane.prototype.Reset = function () {
+        };
         return Plane;
     }(objects.GameObject));
     objects.Plane = Plane;
@@ -768,6 +772,8 @@ var scenes;
         function Start(currentScene) {
             var _this = _super.call(this) || this;
             _this._currentScene = currentScene;
+            //createjs.Sound.alternateExtensions = ["mp3"];
+            _this._sound = createjs.Sound.play("audioStartEnd");
             // register button event handlers
             _this._startButtonClick = _this._startButtonClick.bind(_this);
             _this.Start();
@@ -776,6 +782,7 @@ var scenes;
         // PRIVATE METHODS
         Start.prototype._startButtonClick = function (event) {
             this._currentScene = config.Scene.PLAY;
+            this._sound.stop();
             this.removeAllChildren();
         };
         // PUBLIC METHODS
