@@ -115,7 +115,7 @@ module scenes {
             if(other.name == "tiefighter") 
             {
               this._lives -= 1;
-              other.Reset();
+             // other.Reset();
 
               // Task: Score and Lives
               if(this._lives <= 0)

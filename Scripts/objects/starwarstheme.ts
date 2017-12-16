@@ -4,10 +4,11 @@ module objects {
       
       // PUBLIC PROPERTIES
       // CONSTRUCTORS
-      constructor() {
-        super("starwar");
-      //  this.Start();
+      constructor(name: string) {
+        super(objects.Game.assetManager.getResult(name));
+       
       }
-    
+      
+
     }
   }
