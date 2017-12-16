@@ -510,8 +510,8 @@ var objects;
         }
         // PRIVATE METHODS
         PBullet.prototype._reset = function () {
-            this.y = -1000;
-            this.x = -1000;
+            this.y = 1000;
+            this.x = 1000;
         };
         PBullet.prototype._checkBounds = function () {
             if (this.y <= 0 + this.height) {
@@ -831,25 +831,22 @@ var scenes;
         };
         // Task: Bullet
         Play.prototype._checkCollisionsBullet = function (other) {
-            // var size = enemies[i].sprite.size;
-            for (var i = 0; i < this._tiefighters.length; i++) {
-                var pos = this._tiefighters[i].position;
-                for (var j = 0; j < this._pbullets.length; j++) {
-                    var pos2 = this._pbullets[j].position;
-                    if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
-                        if (!other.isColliding) {
-                            if (other.name == "tiefighter") {
-                                this._score += 100;
-                                this._scoreLabel.text = "Score: " + this._score;
-                                this._tiefighters[i].Reset();
-                            }
+            var pos = other.position;
+            for (var j = 0; j < this._pbullets.length; j++) {
+                var pos2 = this._pbullets[j].position;
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    if (!other.isColliding) {
+                        if (other.name == "tiefighter") {
                             this._pbullets[j].Reset();
+                            this._score += 100;
+                            this._scoreLabel.text = "Score: " + this._score;
+                            other.Reset();
                         }
-                        other.isColliding = true;
                     }
-                    else {
-                        other.isColliding = false;
-                    }
+                    other.isColliding = true;
+                }
+                else {
+                    other.isColliding = false;
                 }
             }
         };
