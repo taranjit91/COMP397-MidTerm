@@ -39,7 +39,6 @@ module objects {
       }
     }
 
-
     // PUBLIC METHODS
     public Start():void
     {
@@ -56,8 +55,10 @@ module objects {
     }
 
 
+
     public Reset():void
     {
+
 
       
     }

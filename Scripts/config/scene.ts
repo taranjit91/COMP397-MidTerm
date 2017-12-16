@@ -5,5 +5,6 @@ module config {
     public static START: number = 0;
     public static PLAY:number = 1;
     public static END: number = 2;
+    public static HIGHSCORE:number = -1;
   }
 }

@@ -22,14 +22,11 @@ module managers {
     {id: "startButton", src: "./Assets/images/start1.png"},
     {id: "playscreenbg", src: "./Assets/images/playbg.jpg"},
     {id: "starwar", src: "./Assets/images/bg.png"},
-    {id: "plane", src: "./Assets/images/xwing.png"},
-    {id: "bullet", src: "./Assets/images/bullet.png"},
-    {id: "tiefighter", src: "./Assets/images/tiefighter.png"},
-    {id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3"},
-
-   
+    {id: "plane", src: "./Assets/images/xwing.png"},    
     {id: "pbullet", src: "./Assets/images/bullet.png"},
- 
+    {id: "plife", src: "./Assets/images/white-heart-md.png"},
+    {id: "tiefighter", src: "./Assets/images/tiefighter.png"},
+    {id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3"}   
   ]
 
   export class AssetManager extends createjs.LoadQueue {
