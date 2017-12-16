@@ -102,14 +102,34 @@ module scenes {
       //this._nextButton.on("click", this._nextButtonClick);
     }
 
-    private _checkCollision(other:objects.GameObject) {
+    private _checkCollision(other:objects.GameObject)
+    {
+      let P1:createjs.Point = new createjs.Point(this._player.x, this._player.y);
+      let P2:createjs.Point = other.position;
 
-      // Task: Score and Lives
-      if(this._lives <= 0) {
-        this._currentScene = config.Scene.END;
-        this.removeAllChildren();                
-      }
-      this._livesLabel.text = "Lives: " + this._lives;
+      if(Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) <(
+        this._player.halfHeight + other.halfHeight))
+        {
+          if(!other.isColliding)
+          { 
+            if(other.name == "tiefighter") 
+            {
+              this._lives -= 1;
+              other.Reset();
+
+              // Task: Score and Lives
+              if(this._lives <= 0)
+              {
+                this._currentScene = config.Scene.END;
+                this.removeAllChildren();                
+              }
+              this._livesLabel.text = "Lives: " + this._lives;
+            }
+            other.isColliding = true;
+        }
+      } else {
+        other.isColliding = false;
+      }         
     }
   }
 }
