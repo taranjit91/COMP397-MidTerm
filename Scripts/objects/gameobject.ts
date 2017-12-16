@@ -36,5 +36,7 @@ module objects {
     public abstract Start():void;
 
     public abstract Update():void;
+
+    public abstract Reset():void;
   }
 }

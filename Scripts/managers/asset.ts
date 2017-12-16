@@ -10,6 +10,7 @@ module managers {
     {id: "restartButton", src: "./Assets/images/restartButton.png"},
     {id: "startButton", src: "./Assets/images/startButton.png"},
     {id: "plane", src: "./Assets/images/xwing.png"},
+    {id: "bullet", src: "./Assets/images/bullet.png"},
     {id: "tiefighter", src: "./Assets/images/tiefighter.png"}
   ]
 
