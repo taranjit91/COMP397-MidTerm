@@ -9,7 +9,8 @@ module managers {
     {id: "nextButton", src: "./Assets/images/nextButton.png"},
     {id: "restartButton", src: "./Assets/images/restartButton.png"},
     {id: "startButton", src: "./Assets/images/startButton.png"},
-    {id: "plane", src: "./Assets/images/plane.png"}
+    {id: "plane", src: "./Assets/images/plane.png"},
+    {id: "starwar", src: "./Assets/images/bg.jpeg"}
   ]
 
   export class AssetManager extends createjs.LoadQueue {
