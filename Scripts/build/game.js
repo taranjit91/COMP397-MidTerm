@@ -671,8 +671,6 @@ var scenes;
         };
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            this._playLabel = new objects.Label("Play Scene", "60px", "Consolas", config.Color.BLACK, config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT, true);
-            this._nextButton = new objects.Button("nextButton", config.Screen.HALF_WIDTH, config.Screen.HALF_HEIGHT + 70, true);
             this._player = new objects.Plane();
             // Task: Enemy
             this._tiefightersNum = 2;
@@ -705,8 +703,6 @@ var scenes;
             return this._currentScene;
         };
         Play.prototype.Main = function () {
-            this.addChild(this._playLabel);
-            this.addChild(this._nextButton);
             this.addChild(this._player);
             // Task: Enemy
             for (var count = 0; count < this._tiefightersNum; count++) {
