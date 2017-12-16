@@ -10,8 +10,10 @@ module objects {
       super("plane");
       this.Start();
     }
+    
     // PRIVATE METHODS
-    private _checkBounds() {
+    private _checkBounds()
+    {
       if(this.x >= config.Screen.WIDTH - this.halfWidth) {
         this.x = config.Screen.WIDTH - this.halfWidth;
       }
@@ -30,18 +32,26 @@ module objects {
 
 
     // PUBLIC METHODS
-    public Start():void {
+    public Start():void
+    {
       this.x = 320;
       this.y = 430;
       this.bulletSpawn = new createjs.Point(this.y - 35, this.x);
     }
 
-    public Update():void {
+    public Update():void
+    {
       this.bulletSpawn.x = this.x;
-      this.bulletSpawn.y = this.y -35;
+      this.bulletSpawn.y = this.y - 35;
       this._checkBounds();
     }
+<<<<<<< HEAD
     public Reset():void{
+=======
+
+    public Reset():void
+    {
+>>>>>>> fcfd6c6f2265b2739f05ed89b8b700b62174d6fb
       
     }
   }

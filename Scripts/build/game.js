@@ -194,6 +194,7 @@ var managers;
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "tiefighter", src: "./Assets/images/tiefighter.png" },
         { id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3" },
+        { id: "pbullet", src: "./Assets/images/bullet.png" },
     ];
     var AssetManager = /** @class */ (function (_super) {
         __extends(AssetManager, _super);
@@ -370,6 +371,10 @@ var managers;
                 this.player.y -= 2 * Math.cos(direction * (Math.PI / 180));
             }
         };
+        // Task: Bullet
+        Keyboard.prototype.IsJump = function () {
+            return this.jump;
+        };
         Keyboard.prototype.Update = function () {
             this.MovePlayer();
         };
@@ -490,6 +495,51 @@ var objects;
         return Label;
     }(createjs.Text));
     objects.Label = Label;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var PBullet = /** @class */ (function (_super) {
+        __extends(PBullet, _super);
+        // PRIVATE INSTANCE VARIABLES
+        // PUBLIC PROPERTIES
+        // CONSTRUCTORS
+        function PBullet() {
+            var _this = _super.call(this, "pbullet") || this;
+            _this.Start();
+            return _this;
+        }
+        // PRIVATE METHODS
+        PBullet.prototype._reset = function () {
+            this.y = -1000;
+            this.x = -1000;
+        };
+        PBullet.prototype._checkBounds = function () {
+            if (this.y <= 0 + this.height) {
+                this._reset();
+            }
+        };
+        PBullet.prototype._updatePosition = function () {
+            this.y += this.verticalSpeed;
+            this.position.x = this.x;
+            this.position.y = this.y;
+        };
+        // PUBLIC METHODS
+        PBullet.prototype.Start = function () {
+            this.verticalSpeed = -10;
+            this._reset();
+        };
+        PBullet.prototype.Reset = function () {
+            this._reset();
+        };
+        PBullet.prototype.Update = function () {
+            if (this.y > 0) {
+                this._updatePosition();
+                this._checkBounds();
+            }
+        };
+        return PBullet;
+    }(objects.GameObject));
+    objects.PBullet = PBullet;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
@@ -696,14 +746,22 @@ var scenes;
         // PUBLIC METHODS
         Play.prototype.Start = function () {
             this._player = new objects.Plane();
+            this._theme = new objects.Starwar("playscreenbg");
+            // Task: Bullet
+            this._pbulletNum = 30;
+            this._pbullets = new Array();
+            this._pbulletCounter = 0;
+            this._pbulletInterval = true;
+            this._pbulletIntervalNum = 10;
+            this._pbulletIntervalCount = 0;
             // Task: Enemy
             this._tiefightersNum = 2;
             this._tiefighters = new Array();
             // Task: Score and Lives
             this._lives = 5;
             this._score = 0;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", config.Color.BLACK, 100, 10, true);
-            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
             // uncomment the next line to enable gamepad support
             //this._gamepad = new managers.GamePad(this._player, 0);
             //this._mouse = new managers.Mouse(this._player);
@@ -712,6 +770,12 @@ var scenes;
         };
         Play.prototype.Update = function () {
             var _this = this;
+            // Task: Bullet
+            this._pbulletIntervalCount++;
+            if (this._pbulletIntervalCount > this._pbulletIntervalNum) {
+                this._pbulletIntervalCount = 0;
+                this._pbulletInterval = true;
+            }
             this._player.Update();
             // uncomment the next line to enable gamepad support
             //this._gamepad.Update();
@@ -719,15 +783,31 @@ var scenes;
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);
+            if (this._keyboard.IsJump() && this._pbulletInterval == true) {
+                this._bulletFire();
+                this._pbulletInterval = false;
+            }
+            // Task: Bullet
+            this._pbullets.forEach(function (bullet) {
+                bullet.Update();
+            });
             // Task: Enemy
             this._tiefighters.forEach(function (tiefighters) {
                 tiefighters.Update();
                 _this._checkCollision(tiefighters);
+                // Task: Bullet
+                _this._checkCollisionsBullet(tiefighters);
             });
             return this._currentScene;
         };
         Play.prototype.Main = function () {
+            this.addChild(this._theme);
             this.addChild(this._player);
+            // Task: Bullet
+            for (var count = 0; count < this._pbulletNum; count++) {
+                this._pbullets[count] = new objects.PBullet();
+                this.addChild(this._pbullets[count]);
+            }
             // Task: Enemy
             for (var count = 0; count < this._tiefightersNum; count++) {
                 this._tiefighters[count] = new objects.Tiefighter();
@@ -738,6 +818,39 @@ var scenes;
             this.addChild(this._scoreLabel);
             //this._nextButton.on("click", this._nextButtonClick);
         };
+        // Task: Bullet
+        Play.prototype._bulletFire = function () {
+            this._pbullets[this._pbulletCounter].x = this._player.bulletSpawn.x;
+            this._pbullets[this._pbulletCounter].y = this._player.bulletSpawn.y;
+            this._pbulletCounter++;
+            if (this._pbulletCounter >= this._pbulletNum - 1) {
+                this._pbulletCounter = 0;
+            }
+        };
+        // Task: Bullet
+        Play.prototype._checkCollisionsBullet = function (other) {
+            // var size = enemies[i].sprite.size;
+            for (var i = 0; i < this._tiefighters.length; i++) {
+                var pos = this._tiefighters[i].position;
+                for (var j = 0; j < this._pbullets.length; j++) {
+                    var pos2 = this._pbullets[j].position;
+                    if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                        if (!other.isColliding) {
+                            if (other.name == "tiefighter") {
+                                this._score += 100;
+                                this._scoreLabel.text = "Score: " + this._score;
+                                this._tiefighters[i].Reset();
+                            }
+                            this._pbullets[j].Reset();
+                        }
+                        other.isColliding = true;
+                    }
+                    else {
+                        other.isColliding = false;
+                    }
+                }
+            }
+        };
         Play.prototype._checkCollision = function (other) {
             var P1 = new createjs.Point(this._player.x, this._player.y);
             var P2 = other.position;
@@ -745,7 +858,7 @@ var scenes;
                 if (!other.isColliding) {
                     if (other.name == "tiefighter") {
                         this._lives -= 1;
-                        // other.Reset();
+                        other.Reset();
                         // Task: Score and Lives
                         if (this._lives <= 0) {
                             this._currentScene = config.Scene.END;

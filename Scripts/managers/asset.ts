@@ -7,6 +7,7 @@ module managers {
   let assetManifest = [
     {id: "backButton", src: "./Assets/images/backButton.png"},
     {id: "nextButton", src: "./Assets/images/nextButton.png"},
+
     {id: "restartButton", src: "./Assets/images/restart.png"},
     {id: "exitButton", src: "./Assets/images/exit1.png"},
     {id: "startButton", src: "./Assets/images/start1.png"},
@@ -16,6 +17,10 @@ module managers {
     {id: "bullet", src: "./Assets/images/bullet.png"},
     {id: "tiefighter", src: "./Assets/images/tiefighter.png"},
     {id: "audioStartEnd", src: "./Assets/audio/starwars_theme.mp3"},
+
+   
+    {id: "pbullet", src: "./Assets/images/bullet.png"},
+ 
   ]
 
   export class AssetManager extends createjs.LoadQueue {

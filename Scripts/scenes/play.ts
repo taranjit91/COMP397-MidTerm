@@ -5,6 +5,16 @@ module scenes {
     private _player:objects.Plane;
     private _keyboard:managers.Keyboard;
     private _mouse:managers.Mouse;
+    private _theme:objects.Starwar;
+
+    // Task: Bullet
+    private _pbullets: objects.PBullet[];
+    private _pbulletNum: number;
+    private _pbulletCounter: number;
+
+    private _pbulletInterval: boolean;
+    private _pbulletIntervalNum: number;
+    private _pbulletIntervalCount: number;
 
     // Task: Enemy
     private _tiefighters:objects.Tiefighter[];  
@@ -35,10 +45,18 @@ module scenes {
       this.removeAllChildren();
     }
 
-
     // PUBLIC METHODS
     public Start():void {
       this._player = new objects.Plane();
+      this._theme = new objects.Starwar("playscreenbg");
+      
+      // Task: Bullet
+      this._pbulletNum = 30;
+      this._pbullets = new Array<objects.PBullet>();
+      this._pbulletCounter = 0;
+      this._pbulletInterval = true;
+      this._pbulletIntervalNum = 10;
+      this._pbulletIntervalCount = 0;
 
       // Task: Enemy
       this._tiefightersNum = 2;
@@ -47,19 +65,25 @@ module scenes {
       // Task: Score and Lives
       this._lives = 5;
       this._score = 0;     
-      this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", config.Color.BLACK, 100, 10, true);       
-      this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
-
+      this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Dock51", config.Color.WHITE, 100, 10, true);       
+      this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Dock51", config.Color.WHITE, 500, 10, true);
+      
       // uncomment the next line to enable gamepad support
       //this._gamepad = new managers.GamePad(this._player, 0);
       //this._mouse = new managers.Mouse(this._player);
       this._keyboard = new managers.Keyboard(this._player);
 
-
       this.Main();
     }
 
     public Update():number {
+      // Task: Bullet
+      this._pbulletIntervalCount++;
+      if(this._pbulletIntervalCount > this._pbulletIntervalNum) {
+        this._pbulletIntervalCount = 0;
+        this._pbulletInterval = true;
+      }
+      
       this._player.Update();
       // uncomment the next line to enable gamepad support
       //this._gamepad.Update();
@@ -69,17 +93,38 @@ module scenes {
       // Check the Collision
       //this._checkCollision(this);
 
+      if( this._keyboard.IsJump() && this._pbulletInterval == true )
+      {
+        this._bulletFire();
+        this._pbulletInterval = false;
+      }
+
+      // Task: Bullet
+      this._pbullets.forEach(bullet => {
+        bullet.Update();
+      });
+
       // Task: Enemy
       this._tiefighters.forEach(tiefighters => {
-        tiefighters.Update();
+        tiefighters.Update(); 
         this._checkCollision(tiefighters);
+
+        // Task: Bullet
+        this._checkCollisionsBullet(tiefighters);
       });
 
       return this._currentScene; 
     }
 
-    public Main():void {
+    public Main():void {      
+      this.addChild(this._theme);
       this.addChild(this._player);
+
+      // Task: Bullet
+      for (let count = 0; count < this._pbulletNum; count++) {
+        this._pbullets[count] = new objects.PBullet();
+        this.addChild(this._pbullets[count]);
+      }
 
       // Task: Enemy
       for (let count = 0; count < this._tiefightersNum; count++) {
@@ -92,6 +137,53 @@ module scenes {
       this.addChild(this._scoreLabel);
 
       //this._nextButton.on("click", this._nextButtonClick);
+    }
+
+    // Task: Bullet
+    private _bulletFire():void
+    {
+      this._pbullets[this._pbulletCounter].x = this._player.bulletSpawn.x;
+      this._pbullets[this._pbulletCounter].y = this._player.bulletSpawn.y;
+
+      this._pbulletCounter++;
+      if(this._pbulletCounter >= this._pbulletNum - 1)
+      {
+        this._pbulletCounter = 0;
+      }
+    }
+
+    // Task: Bullet
+    private _checkCollisionsBullet(other:objects.GameObject)
+    {
+      // var size = enemies[i].sprite.size;
+      for(var i = 0; i < this._tiefighters.length; i++)
+      {
+        var pos = this._tiefighters[i].position;
+
+        for(var j = 0; j < this._pbullets.length; j++)
+        {
+          var pos2 = this._pbullets[j].position;
+
+          if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight))
+          {
+            if(!other.isColliding)
+            {
+              if(other.name == "tiefighter")
+              {                
+                this._score += 100;
+                this._scoreLabel.text = "Score: " + this._score;
+                this._tiefighters[i].Reset();                
+              }
+              this._pbullets[j].Reset(); 
+            }
+            other.isColliding = true;
+          }
+          else
+          {
+            other.isColliding = false;
+          }
+        }
+      }      
     }
 
     private _checkCollision(other:objects.GameObject)
@@ -107,7 +199,7 @@ module scenes {
             if(other.name == "tiefighter") 
             {
               this._lives -= 1;
-             // other.Reset();
+              other.Reset();
 
               // Task: Score and Lives
               if(this._lives <= 0)
