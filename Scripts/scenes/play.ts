@@ -25,6 +25,11 @@ module scenes {
     private _pbulletIntervalNum: number;
     private _pbulletIntervalCount: number;
 
+    // Task: Boss
+    private _milleniumFalcon: objects.MilleniumFalcon;
+    private _milleniumFalconLife: number;
+    private _milleniumFalconShowUpTime: number;
+
     // Task: Enemy
     private _tiefighters:objects.Tiefighter[];  
     private _tiefightersNum:number;
