@@ -8,6 +8,17 @@ module scenes {
     private _keyboard:managers.Keyboard;
     private _mouse:managers.Mouse;
 
+    // Task: Enemy
+    private _tiefighters:objects.Tiefighter[];  
+    private _tiefightersNum:number;
+
+    // Task: Score and Lives
+    private _livesLabel: objects.Label;
+    private _scoreLabel: objects.Label;
+
+    private _lives:number;
+    private _score:number
+
     //CONSTRUCTORS
     constructor(currentScene: number) {
       super();
@@ -34,6 +45,16 @@ module scenes {
 
       this._player = new objects.Plane();
 
+      // Task: Enemy
+      this._tiefightersNum = 2;
+      this._tiefighters = new Array<objects.Tiefighter>();
+
+      // Task: Score and Lives
+      this._lives = 5;
+      this._score = 0;     
+      this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", config.Color.BLACK, 100, 10, true);       
+      this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", config.Color.BLACK, 500, 10, true);
+
       // uncomment the next line to enable gamepad support
       //this._gamepad = new managers.GamePad(this._player, 0);
       this._mouse = new managers.Mouse(this._player);
@@ -51,7 +72,16 @@ module scenes {
       this._keyboard.Update();
 
 
-      return this._currentScene;
+      // Check the Collision
+      //this._checkCollision(this);
+
+      // Task: Enemy
+      this._tiefighters.forEach(tiefighters => {
+        tiefighters.Update();
+        this._checkCollision(tiefighters);
+      });
+
+      return this._currentScene; 
     }
 
     public Main():void {
@@ -59,9 +89,27 @@ module scenes {
       this.addChild(this._nextButton);
       this.addChild(this._player);
 
+      // Task: Enemy
+      for (let count = 0; count < this._tiefightersNum; count++) {
+        this._tiefighters[count] = new objects.Tiefighter();
+        this.addChild(this._tiefighters[count]);
+      }
 
+      // Task: Score and Lives
+      this.addChild(this._livesLabel);
+      this.addChild(this._scoreLabel);
 
-      this._nextButton.on("click", this._nextButtonClick);
+      //this._nextButton.on("click", this._nextButtonClick);
+    }
+
+    private _checkCollision(other:objects.GameObject) {
+
+      // Task: Score and Lives
+      if(this._lives <= 0) {
+        this._currentScene = config.Scene.END;
+        this.removeAllChildren();                
+      }
+      this._livesLabel.text = "Lives: " + this._lives;
     }
   }
 }
