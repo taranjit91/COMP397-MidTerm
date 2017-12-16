@@ -186,7 +186,7 @@ var managers;
     var assetManifest = [
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "restartButton", src: "./Assets/images/restart.png" },
+        { id: "restartButton", src: "./Assets/images/restart1.png" },
         { id: "exitButton", src: "./Assets/images/exit1.png" },
         { id: "startButton", src: "./Assets/images/start1.png" },
         { id: "playscreenbg", src: "./Assets/images/playbg.jpg" },

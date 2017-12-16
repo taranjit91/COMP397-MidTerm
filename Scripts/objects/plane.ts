@@ -44,17 +44,13 @@ module objects {
       this.bulletSpawn.y = this.y - 35;
       this._checkBounds();
     }
-<<<<<<< HEAD
 
-    public Reset():void
-    {
-=======
 
 
     public Reset():void
     {
 
->>>>>>> f8a6d554902ec82bdd2835514fe7260a2c2c7ea0
+
       
     }
   }
