@@ -113,10 +113,13 @@ module managers {
       }
     }
 
+    // Task: Bullet
+    public IsJump(): boolean {
+      return this.jump;
+    }
+
     public Update():void {
       this.MovePlayer();
     }
-
-
   }
 }

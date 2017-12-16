@@ -188,7 +188,7 @@ var managers;
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "plane", src: "./Assets/images/xwing.png" },
-        { id: "bullet", src: "./Assets/images/bullet.png" },
+        { id: "pbullet", src: "./Assets/images/bullet.png" },
         { id: "tiefighter", src: "./Assets/images/tiefighter.png" }
     ];
     var AssetManager = /** @class */ (function (_super) {
@@ -366,6 +366,10 @@ var managers;
                 this.player.y -= 2 * Math.cos(direction * (Math.PI / 180));
             }
         };
+        // Task: Bullet
+        Keyboard.prototype.IsJump = function () {
+            return this.jump;
+        };
         Keyboard.prototype.Update = function () {
             this.MovePlayer();
         };
@@ -489,6 +493,51 @@ var objects;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
+    var PBullet = /** @class */ (function (_super) {
+        __extends(PBullet, _super);
+        // PRIVATE INSTANCE VARIABLES
+        // PUBLIC PROPERTIES
+        // CONSTRUCTORS
+        function PBullet() {
+            var _this = _super.call(this, "pbullet") || this;
+            _this.Start();
+            return _this;
+        }
+        // PRIVATE METHODS
+        PBullet.prototype._reset = function () {
+            this.y = -1000;
+            this.x = -1000;
+        };
+        PBullet.prototype._checkBounds = function () {
+            if (this.y <= 0 + this.height) {
+                this._reset();
+            }
+        };
+        PBullet.prototype._updatePosition = function () {
+            this.y += this.verticalSpeed;
+            this.position.x = this.x;
+            this.position.y = this.y;
+        };
+        // PUBLIC METHODS
+        PBullet.prototype.Start = function () {
+            this.verticalSpeed = -10;
+            this._reset();
+        };
+        PBullet.prototype.Reset = function () {
+            this._reset();
+        };
+        PBullet.prototype.Update = function () {
+            if (this.y > 0) {
+                this._updatePosition();
+                this._checkBounds();
+            }
+        };
+        return PBullet;
+    }(objects.GameObject));
+    objects.PBullet = PBullet;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
     var Plane = /** @class */ (function (_super) {
         __extends(Plane, _super);
         // PUBLIC PROPERTIES
@@ -523,6 +572,8 @@ var objects;
             this.bulletSpawn.x = this.x;
             this.bulletSpawn.y = this.y - 35;
             this._checkBounds();
+        };
+        Plane.prototype.Reset = function () {
         };
         return Plane;
     }(objects.GameObject));
@@ -672,6 +723,10 @@ var scenes;
         // PUBLIC METHODS
         Play.prototype.Start = function () {
             this._player = new objects.Plane();
+            // Task: Bullet
+            this._pbulletNum = 30;
+            this._pbullets = new Array();
+            this._pbulletCounter = 0;
             // Task: Enemy
             this._tiefightersNum = 2;
             this._tiefighters = new Array();
@@ -695,6 +750,14 @@ var scenes;
             this._keyboard.Update();
             // Check the Collision
             //this._checkCollision(this);
+            if (this._keyboard.IsJump()) {
+                this._bulletFire();
+            }
+            // Task: Bullet
+            this._pbullets.forEach(function (bullet) {
+                bullet.Update();
+                _this._checkCollisionsBullet(bullet);
+            });
             // Task: Enemy
             this._tiefighters.forEach(function (tiefighters) {
                 tiefighters.Update();
@@ -704,6 +767,11 @@ var scenes;
         };
         Play.prototype.Main = function () {
             this.addChild(this._player);
+            // Task: Bullet
+            for (var count = 0; count < this._pbulletNum; count++) {
+                this._pbullets[count] = new objects.PBullet();
+                this.addChild(this._pbullets[count]);
+            }
             // Task: Enemy
             for (var count = 0; count < this._tiefightersNum; count++) {
                 this._tiefighters[count] = new objects.Tiefighter();
@@ -713,6 +781,39 @@ var scenes;
             this.addChild(this._livesLabel);
             this.addChild(this._scoreLabel);
             //this._nextButton.on("click", this._nextButtonClick);
+        };
+        // Task: Bullet
+        Play.prototype._bulletFire = function () {
+            this._pbullets[this._pbulletCounter].x = this._player.bulletSpawn.x;
+            this._pbullets[this._pbulletCounter].y = this._player.bulletSpawn.y;
+            this._pbulletCounter++;
+            if (this._pbulletCounter >= this._pbulletNum - 1) {
+                this._pbulletCounter = 0;
+            }
+        };
+        // Task: Bullet
+        Play.prototype._checkCollisionsBullet = function (other) {
+            // var size = enemies[i].sprite.size;
+            for (var i = 0; i < this._tiefighters.length; i++) {
+                var pos = this._tiefighters[i].position;
+                for (var j = 0; j < this._pbullets.length; j++) {
+                    var pos2 = this._pbullets[j].position;
+                    if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                        if (!other.isColliding) {
+                            if (other.name == "tiefighter") {
+                                this._score += 100;
+                                this._scoreLabel.text = "Score: " + this._score;
+                                this._tiefighters[i].Reset();
+                            }
+                            this._pbullets[j].Reset();
+                        }
+                        other.isColliding = true;
+                    }
+                    else {
+                        other.isColliding = false;
+                    }
+                }
+            }
         };
         Play.prototype._checkCollision = function (other) {
             var P1 = new createjs.Point(this._player.x, this._player.y);

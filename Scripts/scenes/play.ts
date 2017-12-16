@@ -6,6 +6,11 @@ module scenes {
     private _keyboard:managers.Keyboard;
     private _mouse:managers.Mouse;
 
+    // Task: Bullet
+    private _pbullets: objects.PBullet[];
+    private _pbulletNum: number;
+    private _pbulletCounter: number;
+
     // Task: Enemy
     private _tiefighters:objects.Tiefighter[];  
     private _tiefightersNum:number;
@@ -35,10 +40,14 @@ module scenes {
       this.removeAllChildren();
     }
 
-
     // PUBLIC METHODS
     public Start():void {
       this._player = new objects.Plane();
+
+      // Task: Bullet
+      this._pbulletNum = 30;
+      this._pbullets = new Array<objects.PBullet>();
+      this._pbulletCounter = 0;
 
       // Task: Enemy
       this._tiefightersNum = 2;
@@ -69,6 +78,17 @@ module scenes {
       // Check the Collision
       //this._checkCollision(this);
 
+      if( this._keyboard.IsJump() )
+      {
+        this._bulletFire();
+      }
+
+      // Task: Bullet
+      this._pbullets.forEach(bullet => {
+        bullet.Update();
+        this._checkCollisionsBullet(bullet);
+      });
+
       // Task: Enemy
       this._tiefighters.forEach(tiefighters => {
         tiefighters.Update();
@@ -81,6 +101,12 @@ module scenes {
     public Main():void {
       this.addChild(this._player);
 
+      // Task: Bullet
+      for (let count = 0; count < this._pbulletNum; count++) {
+        this._pbullets[count] = new objects.PBullet();
+        this.addChild(this._pbullets[count]);
+      }
+
       // Task: Enemy
       for (let count = 0; count < this._tiefightersNum; count++) {
         this._tiefighters[count] = new objects.Tiefighter();
@@ -92,6 +118,52 @@ module scenes {
       this.addChild(this._scoreLabel);
 
       //this._nextButton.on("click", this._nextButtonClick);
+    }
+
+    // Task: Bullet
+    private _bulletFire():void
+    {
+      this._pbullets[this._pbulletCounter].x = this._player.bulletSpawn.x;
+      this._pbullets[this._pbulletCounter].y = this._player.bulletSpawn.y;
+
+      this._pbulletCounter++;
+      if(this._pbulletCounter >= this._pbulletNum - 1)
+      {
+        this._pbulletCounter = 0;
+      }
+    }
+
+    // Task: Bullet
+    private _checkCollisionsBullet(other:objects.GameObject)
+    {
+      // var size = enemies[i].sprite.size;
+      for(var i = 0; i < this._tiefighters.length; i++)
+      {
+        var pos = this._tiefighters[i].position;
+        for(var j = 0; j < this._pbullets.length; j++)
+        {
+          var pos2 = this._pbullets[j].position;
+
+          if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) <(this._player.halfHeight + other.halfHeight))
+          {
+            if(!other.isColliding)
+            {
+              if(other.name == "tiefighter")
+              {
+                this._score += 100;
+                this._scoreLabel.text = "Score: " + this._score;
+                this._tiefighters[i].Reset();                
+              }
+              this._pbullets[j].Reset(); 
+            }
+            other.isColliding = true;
+          }
+          else
+          {
+            other.isColliding = false;
+          }
+        }
+      }      
     }
 
     private _checkCollision(other:objects.GameObject)
