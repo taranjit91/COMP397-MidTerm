@@ -958,6 +958,7 @@ Xwing just need to collect 1000 power(scores) to win the game and save Millenniu
             _this._currentScene = currentScene;
             // Register Button Event Handlers
             _this._backButtonClick = _this._backButtonClick.bind(_this);
+            _this._sound = createjs.Sound.play("audioStartEnd");
             _this.Start();
             return _this;
         }

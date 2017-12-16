@@ -24,7 +24,7 @@ module scenes {
 
       // Register Button Event Handlers
       this._backButtonClick = this._backButtonClick.bind(this);
-
+      this._sound = createjs.Sound.play("audioStartEnd");
       this.Start();
     }
 
