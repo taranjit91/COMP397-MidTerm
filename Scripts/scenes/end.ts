@@ -1,3 +1,12 @@
+/*Team Name : 
+Amandeep K Aujla(300823938)
+Sangbeom Yi (300857600)
+Taranjit Kaur (300854507)
+
+Description:This is a 2D top down game Star Wars game. This game is story-driven Star Wars saga. TIE fighter is trying to destroy Millennium Falcon, the spaceship and XWing aim is to save starship. Xwing is fighting and try to kill TIE fighter to save starship. 
+Version 1
+Xwing just need to collect 1000 power(scores) to win the game and save Millennium Falcon is in Play Level*/
+
 module scenes {
   export class End extends objects.Scene {
     // PRIVATE INSTANCE VARIABLES
@@ -5,14 +14,14 @@ module scenes {
     private _backButton:objects.Button;
     private _highScoreLabel: objects.Label;
     private _theme:objects.Starwar;
-    private _sound: createjs.AbstractSoundInstance;
+
 
     //CONSTRUCTORS
     constructor(currentScene: number) {
       super();
 
       this._currentScene = currentScene;
-      this._sound = createjs.Sound.play("audioStartEnd");
+
       // Register Button Event Handlers
       this._backButtonClick = this._backButtonClick.bind(this);
 
@@ -22,7 +31,6 @@ module scenes {
     // PRIVATE METHODS
     private _backButtonClick(event:createjs.MouseEvent):void {
       this._currentScene = config.Scene.PLAY;
-      this._sound.stop();
       this.removeAllChildren();
     }
 
